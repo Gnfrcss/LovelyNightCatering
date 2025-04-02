@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catering Business</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="js/script.js" defer></script>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Fullscreen Login Form -->
+    <div id="loginContainer">
+        <div class="login-header">
+            <img src="images/logo.png" alt="Lovely Night Logo" class="logo">  
+            <h2>Welcome to Lovely Night Catering</h2>
+        </div>
+        <div class="login-box">
+            <form id="loginForm">
+                <input type="email" id="email" placeholder="Email" required>
+                
+               
+                <div style="position: relative; display: flex; align-items: center;">
+    <input type="password" id="password" placeholder="Password" required>
+    
+    <span id="togglePassword" style="cursor: pointer; position: absolute; right: 10px;">👁️‍🗨️</span>
+</div>
+<button type="submit">Sign In</button>
+            </form>
+            <p id="forgotPassword">Forgot Password?</p>
+            
+        </div>
+    </div>
+
+    <!-- Notification Alert -->
+    <div id="notification" class="hidden"></div>
+
+    <!-- Website Content (Hidden Initially) -->
+    <div id="websiteContent" style="display: none;">
+        <p>You are now logged in.</p>
+    </div>
+
+</body>
+</html>
+<script>
+    function showNotification(message, type) {
+    let notification = document.getElementById("notification");
+    notification.innerHTML = message + '<br><button onclick="closeNotification()">OK</button>';
+    notification.classList.remove("hidden");
+
+    setTimeout(() => {
+        closeNotification();
+    }, 3000);
+}
+
+function closeNotification() {
+    document.getElementById("notification").classList.add("hidden");
+}
+document.addEventListener("DOMContentLoaded", function () {
+    let validEmail = "haha@gmail.com";
+    let validPassword = "1234";
+    let attempts = 0;
+
+    document.getElementById("loginForm").addEventListener("submit", function (e) {
+        e.preventDefault();
+        
+        let email = document.getElementById("email").value;
+        let password = document.getElementById("password").value;
+
+        if (email === validEmail && password === validPassword) {
+            showNotification(" Successfully logged in!", "success");
+            setTimeout(() => {
+                document.getElementById("loginContainer").style.display = "none";
+                document.getElementById("websiteContent").style.display = "block";
+            }, 1000);
+        } else {
+            attempts++;
+            showNotification(` Invalid email or password. Attempts left: ${3 - attempts}`, "error");
+
+            if (attempts >= 3) {
+                showNotification(" Too many attempts. Please wait 10 seconds.", "error");
+                document.getElementById("loginForm").style.display = "none";
+                setTimeout(() => {
+                    attempts = 0;
+                    document.getElementById("loginForm").style.display = "block";
+                }, 10000);
+            }
+        }
+    });
+
+    document.getElementById("forgotPassword").addEventListener("click", function () {
+        let newPassword = prompt("Enter a new password:");
+        if (newPassword && newPassword.length >= 4) {
+            validPassword = newPassword;
+            showNotification(" Password successfully updated! Use your new password to log in.", "success");
+        } else {
+            showNotification("Password must be at least 4 characters.", "error");
+        }
+    });
+
+    function showNotification(message, type) {
+        let notification = document.getElementById("notification");
+        notification.textContent = message;
+        notification.className = `notification ${type}`;
+        notification.classList.remove("hidden");
+        
+        setTimeout(() => {
+            notification.classList.add("hidden");
+        }, 3000);
+    }
+
+    // Show/Hide Password
+    document.getElementById("togglePassword").addEventListener("click", function () {
+        let passwordField = document.getElementById("password");
+        if (passwordField.type === "password") {
+            passwordField.type = "text";
+            this.textContent = "👁️"; 
+        } else {
+            passwordField.type = "password";
+            this.textContent = "👁️‍🗨️"; 
+        }
+    });
+});
+</script>
+    <!-- Header -->
+    <header>
+        <div class="logo">
+            <h1>Lovely Night Catering</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="javascript:void(0);" onclick="showSection('home')">Home</a></li>
+                <li><a href="javascript:void(0);" onclick="showSection('menu')">Menu</a></li>
+                <li><a href="javascript:void(0);" onclick="showSection('gallery')">Gallery</a></li>
+                <li><a href="javascript:void(0);" onclick="showSection('services')">Services</a></li>
+                <li><a href="javascript:void(0);" onclick="showSection('testimonials')">Testimonials</a></li>
+                <li><a href="javascript:void(0);" onclick="showSection('contact')">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Home Section -->
+<section id="home">
+    <h1>Welcome to Lovely Night Catering</h1>
+    <p>Delicious food that makes your events memorable!</p>
+
+    <!-- Lovely Night Catering Header -->
+    <div class="home-description">
+        <h2>Lovely Night Catering</h2>
+        <p>
+            At Lovely Night Catering, we believe that every occasion deserves to be celebrated with extraordinary food and impeccable service. 
+            Whether you're hosting a grand wedding, an intimate gathering, or a corporate event, our team is dedicated to delivering a seamless 
+            dining experience that delights your guests. From elegantly crafted dishes to customized menu options, we bring passion and expertise 
+            to every meal. Let us make your special moments even more unforgettable with our top-tier catering services.
+        </p>
+    </div>
+
+    
+
+    <!-- Menu Section -->
+    <!-- Menu Section -->
+<section id="menu" class="hidden">
+    <h2>Our Menu</h2>
+    <p>Appetizers | Main Courses | Desserts | Beverages</p>
+    <h3>Popular Dishes</h3>
+
+    <div class="menu-container">
+        <div class="menu-item">
+            <img src="images/menu3.jpg" alt="Spring Rolls">
+            <h3>Spring Rolls</h3>
+            <p>Crispy and filled with fresh veggies & meat.</p>
+            <p class="price">₱250</p>
+        </div>
+        <div class="menu-item">
+            <img src="images/menu1.jpg" alt="Grilled Steak">
+            <h3>Grilled Steak</h3>
+            <p>Juicy and tender steak served with sides.</p>
+            <p class="price">₱350</p>
+        </div>
+        <div class="menu-item">
+            <img src="images/menu2.jpg" alt="Chocolate Lava Cake">
+            <h3>Chocolate Lava Cake</h3>
+            <p>Warm chocolate cake with a molten center.</p>
+            <p class="price">₱280</p>
+        </div>
+    </div>
+
+    <div class="package-deals">
+        <h3>Package Deals</h3>
+        <p><strong>Wedding Package</strong></p>
+        <p>Includes a full-course meal, drinks, and catering staff.</p>
+        <p class="price">₱5,000</p>
+
+        <p><strong>Corporate Package</strong></p>
+        <p>Perfect for office events with buffet options.</p>
+        <p class="price">₱3,500</p>
+
+        <button class="inquire-btn">Inquire Now</button>
+    </div>
+</section>
+
+    <!-- Gallery Section -->
+<section id="gallery" class="hidden">
+    <h2>Our Event Gallery</h2>
+    <p>Explore our beautifully catered events, showcasing our exquisite setups, delicious dishes, and the joyful moments shared by our clients.</p>
+
+    <div class="gallery-container">
+        <!-- Image 1 -->
+        <div class="gallery-item">
+            <img src="images/wedding.jpg" alt="Wedding Catering Setup">
+            <h3>Elegant Wedding Setup</h3>
+            <p>A beautifully arranged wedding catering table, featuring floral decorations and fine dining arrangements.</p>
+        </div>
+
+        <!-- Image 2 -->
+        <div class="gallery-item">
+            <img src="images/birthday.jpg" alt="Birthday Party Catering">
+            <h3>Birthday Party Celebration</h3>
+            <p>A colorful birthday party setup with customized cakes and delicious treats.</p>
+        </div>
+
+        <!-- Image 3 -->
+        <div class="gallery-item">
+            <img src="images/corporateevent.jpg" alt="Corporate Catering Event">
+            <h3>Corporate Catering Event</h3>
+            <p>Professional buffet-style catering for a corporate seminar, offering a variety of gourmet dishes.</p>
+        </div>
+
+        <!-- Image 4 -->
+        <div class="gallery-item">
+            <img src="images/gallery4.jpg" alt="Outdoor Catering Setup">
+            <h3>Outdoor Banquet</h3>
+            <p>A stunning outdoor catering event under the stars, with elegant table settings.</p>
+        </div>
+
+        <!-- Image 5 -->
+        <div class="gallery-item">
+            <img src="images/gallery5.jpg" alt="Live Cooking Station">
+            <h3>Live Cooking Experience</h3>
+            <p>Interactive live cooking station where guests can watch their meals prepared fresh on-site.</p>
+        </div>
+
+        <!-- Image 6 -->
+        <div class="gallery-item">
+            <img src="images/gallery6.jpg" alt="Dessert Table">
+            <h3>Sweet Indulgence</h3>
+            <p>A beautifully crafted dessert table featuring custom cakes, pastries, and chocolates.</p>
+        </div>
+
+        <!-- Image 7 -->
+        <div class="gallery-item">
+            <img src="images/gallery7.jpg" alt="Buffet Table Setup">
+            <h3>Lavish Buffet Spread</h3>
+            <p>A grand buffet setup with an array of international cuisines and gourmet dishes.</p>
+        </div>
+
+        <!-- Image 8 -->
+        <div class="gallery-item">
+            <img src="images/gallery8.jpg" alt="Fine Dining Setup">
+            <h3>Luxury Fine Dining</h3>
+            <p>An upscale dining experience with premium table settings and elegant plating.</p>
+        </div>
+    </div>
+
+    <!-- Detailed Explanation Below Images -->
+    <p class="gallery-description">
+        At Lovely Night Catering, we take pride in creating unforgettable dining experiences. Our catering services are designed to match the theme and atmosphere of your event, whether it's a wedding, birthday, corporate gathering, or a special celebration. From elegant buffet arrangements to interactive live cooking stations, we ensure that every detail is meticulously planned to perfection. Our team of professional chefs and event planners work together to bring your vision to life, offering a diverse menu tailored to your preferences. Let us transform your event into a remarkable and memorable occasion with our exquisite catering services.
+    </p>
+</section>
+    <!-- Services Section -->
+<section id="services" class="hidden">
+    <h2>Our Catering Services</h2>
+    <p>We provide high-quality catering services for all types of events, ensuring a memorable dining experience for you and your guests.</p>
+
+    <div class="services-container">
+        <div class="service-item">
+            <img src="images/wedding.jpg" alt="Wedding Catering">
+            <h3>Weddings</h3>
+            <p>Elegant dining experience for your special day with customized menu options.</p>
+        </div>
+        <div class="service-item">
+            <img src="images/birthday.jpg" alt="Birthday Catering">
+            <h3>Birthdays</h3>
+            <p>Celebrate with delicious food and customized cakes for any age.</p>
+        </div>
+        <div class="service-item">
+            <img src="images/event.jpg" alt="Corporate Event Catering">
+            <h3>Corporate Events</h3>
+            <p>Professional catering for business meetings, seminars, and company parties.</p>
+        </div>
+    </div>
+
+    <div class="whats-included">
+        <h3>What's Included in Our Catering Packages?</h3>
+        <ul>
+            <li>Full buffet setup with stylish decorations</li>
+            <li>Complete set of utensils, plates, and glassware</li>
+            <li>Well-trained and professional service staff</li>
+            <li>Customizable menu selections to fit your event theme</li>
+            <li>Optional live cooking stations for interactive dining</li>
+            <li>Floral arrangements and venue styling upon request</li>
+        </ul>
+    </div>
+
+    <div class="customization">
+        <h3>Customization & Add-ons</h3>
+        <p><strong>Floral Arrangements</strong> - Elegant table centerpieces & venue decor</p>
+        <p><strong>Live Cooking Stations</strong> - Interactive food preparation for guests</p>
+        <p><strong>Custom Cakes & Desserts</strong> - Personalized cakes for special events</p>
+        <p><strong>Entertainment Services</strong> - Live band, DJ, or emcee for your event</p>
+    </div>
+
+    <div class="pricing">
+        <h3>Pricing & Packages</h3>
+        <p>Our catering packages are tailored to meet your event needs and budget. Contact us for a <strong>custom quote</strong> and special offers.</p>
+        <button class="get-quote-btn">Get a Free Quote</button>
+    </div>
+</section>
+
+    <!-- Testimonials Section -->
+<section id="testimonials" class="hidden">
+    <h2>What Our Clients Say</h2>
+
+    <!-- Ratings Summary -->
+    <div class="testimonial-summary">
+        <div class="rating-stars">★★★★★</div>
+        <span class="rating-number">4.9 (237 Reviews)</span>
+    </div>
+
+    <div class="reviews-container">
+        <!-- Review 1 -->
+        <div class="review-card">
+            <img src="images/user1.jpg" alt="User 1">
+            <h3>Maria S.</h3>
+            <div class="rating-stars">★★★★★</div>
+            <p>"Great service, fantastic food! Will definitely book again."</p>
+            <div class="review-images">
+                <img src="images/review1-1.jpg" alt="Review Image 1">
+                <img src="images/review1-2.jpg" alt="Review Image 2">
+            </div>
+        </div>
+
+        <!-- Review 2 -->
+        <div class="review-card">
+            <img src="images/user2.jpg" alt="User 2">
+            <h3>John & Anna</h3>
+            <div class="rating-stars">★★★★★</div>
+            <p>"Our wedding was perfect, thanks to the amazing catering team!"</p>
+            <div class="review-images">
+                <img src="images/review2-1.jpg" alt="Review Image 1">
+            </div>
+        </div>
+
+        <!-- Review 3 -->
+        <div class="review-card">
+            <img src="images/user3.jpg" alt="User 3">
+            <h3>Lopez Family</h3>
+            <div class="rating-stars">★★★★★</div>
+            <p>"Best catering experience we've ever had. Highly recommended!"</p>
+            <div class="review-images">
+                <img src="images/review3-1.jpg" alt="Review Image 1">
+                <img src="images/review3-2.jpg" alt="Review Image 2">
+            </div>
+        </div>
+
+        <!-- Review 4 -->
+        <div class="review-card">
+            <img src="images/user4.jpg" alt="User 4">
+            <h3>Mark D.</h3>
+            <div class="rating-stars">★★★★☆</div>
+            <p>"Delicious food, but I wish the portions were bigger."</p>
+        </div>
+
+        <!-- Review 5 -->
+        <div class="review-card">
+            <img src="images/user5.jpg" alt="User 5">
+            <h3>Sarah P.</h3>
+            <div class="rating-stars">★★★★★</div>
+            <p>"Everything was perfect! The team was very professional."</p>
+            <div class="review-images">
+                <img src="images/review5-1.jpg" alt="Review Image 1">
+            </div>
+        </div>
+
+        <!-- Review 6 -->
+        <div class="review-card">
+            <img src="images/user6.jpg" alt="User 6">
+            <h3>Kevin R.</h3>
+            <div class="rating-stars">★★★★★</div>
+            <p>"Loved the live cooking station! Highly recommend."</p>
+        </div>
+
+        <!-- Review 7 -->
+        <div class="review-card">
+            <img src="images/user7.jpg" alt="User 7">
+            <h3>Jessica L.</h3>
+            <div class="rating-stars">★★★★★</div>
+            <p>"Affordable and delicious catering service. My guests were impressed!"</p>
+            <div class="review-images">
+                <img src="images/review7-1.jpg" alt="Review Image 1">
+            </div>
+        </div>
+
+        <!-- Review 8 -->
+        <div class="review-card">
+            <img src="images/user8.jpg" alt="User 8">
+            <h3>Brian C.</h3>
+            <div class="rating-stars">★★★★☆</div>
+            <p>"Good food but a bit late on delivery. Otherwise, very satisfied."</p>
+        </div>
+
+        <!-- Review 9 -->
+        <div class="review-card">
+            <img src="images/user9.jpg" alt="User 9">
+            <h3>Alice W.</h3>
+            <div class="rating-stars">★★★★★</div>
+            <p>"Professional service and amazing food! Worth every penny."</p>
+            <div class="review-images">
+                <img src="images/review9-1.jpg" alt="Review Image 1">
+            </div>
+        </div>
+
+        <!-- Review 10 -->
+        <div class="review-card">
+            <img src="images/user10.jpg" alt="User 10">
+            <h3>Emma T.</h3>
+            <div class="rating-stars">★★★★★</div>
+            <p>"Absolutely fantastic catering! Highly recommend to everyone."</p>
+        </div>
+    </div>
+
+    <button class="write-review-btn">Write a Review</button>
+</section>
+
+    <!-- Contact Section -->
+<section id="contact" class="hidden">
+    <h2>Get in Touch with Us</h2>
+    <p>We’d love to be a part of your special event! Contact us for inquiries, reservations, or customized catering packages. Fill out the form below, and we’ll get back to you as soon as possible.</p>
+    
+    <div class="contact-container">
+        <div class="contact-info">
+            <p><strong>Address:</strong> 123 Catering Lane, Your City</p>
+            <p><strong>Phone:</strong> 123-456-7890</p>
+            <p><strong>Email:</strong> balala@gmail.com</p>
+            <p><strong>Business Hours:</strong> Monday - Saturday | 9:00 AM - 6:00 PM</p>
+        </div>
+
+        <form id="contact-form">
+            <input type="text" name="name" placeholder="Your Name" required>
+            <input type="email" name="email" placeholder="Your Email" required>
+            <textarea name="message" placeholder="Your Message" required></textarea>
+            <button type="submit">Send Message</button>
+        </form>
+    </div>
+
+    <p class="privacy-notice">
+        <strong>Your Data is Safe with Us:</strong> We value your privacy and ensure that your personal information is kept confidential. Messages sent through this form are securely processed and used only for communication purposes.
+    </p>
+</section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 Lovely Night Catering. All rights reserved.</p>
+    </footer>
+
+    <script>
+        function showSection(sectionId) {
+            const sections = document.querySelectorAll('section');
+            sections.forEach(section => {
+                section.classList.add('hidden');
+            });
+            document.getElementById(sectionId).classList.remove('hidden');
+        }
+    </script>
+
+</body>
+</html>
+
+</body>
+</html>
